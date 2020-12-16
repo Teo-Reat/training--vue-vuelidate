@@ -1,0 +1,124 @@
+@import "baseGrid";
+
+body {
+  background: lightblue;
+}
+
+.personal,
+.address,
+.document {
+  border: 2px solid red;
+  border-radius: 15px;
+  padding: 30px 15px;
+  //width: 500px;
+  margin: {
+    top: 20px;
+  };
+}
+
+.form {
+  //display: flex;
+  //flex-wrap: wrap;
+
+  &__block {
+    width: 500px;
+    position: relative;
+    margin: {
+      top: 10px;
+    };
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__error {
+    position: absolute;
+    right: -210px;
+    border-radius: 5px;
+    bottom: 30px;
+    width: 200px;
+    background: lightgoldenrodyellow;
+    padding: 10px 20px;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      border: {
+        top: 6px solid lightgoldenrodyellow;
+        left: 6px solid lightgoldenrodyellow;
+        bottom: 6px solid transparent;
+        right: 6px solid transparent;
+      };
+    }
+  }
+}
+
+label {
+  display: flex;
+}
+
+input {
+  border: 1px solid silver;
+  border-radius: 4px;
+  background: white;
+  padding: 5px 10px;
+  min-height: 30px;
+}
+
+.dirty {
+  border-color: #5A5;
+  background: #EFE;
+}
+
+.dirty:focus {
+  outline-color: #8E8;
+}
+
+.error {
+  border-color: red;
+  background: #FDD;
+}
+
+.error:focus {
+  outline-color: #F99;
+}
+
+.multiselect {
+  width: 30%;
+
+  &__box {
+    position: relative;
+  }
+
+  &__select {
+    width: 100%;
+    font-weight: bold;
+  }
+
+  &__over {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &__checkboxes {
+    //display: none;
+    border: 1px #dadada solid;
+
+    &-label {
+      display: block;
+
+      &:hover {
+        background: #FF9999;
+      }
+    }
+  }
+}
+
