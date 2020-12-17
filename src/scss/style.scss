@@ -17,8 +17,10 @@ body {
 }
 
 .form {
-  //display: flex;
-  //flex-wrap: wrap;
+
+  &__title {
+    display: block;
+  }
 
   &__block {
     width: 500px;
@@ -31,6 +33,51 @@ body {
   &__label {
     display: flex;
     flex-direction: column;
+
+    &-radio {
+      display: flex;
+      align-items: center;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+
+      &:hover {
+        background: dodgerblue;
+      }
+    }
+
+    &-checkbox {
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        background: dodgerblue;
+      }
+    }
+  }
+
+  &__select {
+    width: 100%;
+    border: 1px solid silver;
+    border-radius: 4px;
+    background: white;
+    padding: 5px 10px;
+    height: 42px;
+  }
+
+  &__description {
+    user-select: none;
+
+    &-radio {
+      margin-left: 5px;
+    }
+
+    &-checkbox {
+      margin-left: 5px;
+    }
+  }
+
+  &__radio {
+    margin-top: -2px;
   }
 
   &__error {
@@ -58,16 +105,61 @@ body {
   }
 }
 
-label {
-  display: flex;
-}
-
 input {
   border: 1px solid silver;
   border-radius: 4px;
   background: white;
   padding: 5px 10px;
-  min-height: 30px;
+  height: 30px;
+}
+
+.multiselect {
+  width: 500px;
+
+  &__box {
+    position: relative;
+  }
+
+  &__select {
+    width: 100%;
+    border: 1px solid silver;
+    border-radius: 4px;
+    background: white;
+    padding: 5px 10px;
+    height: 42px;
+  }
+
+  &__over {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &__checkboxes {
+    border: 1px #dadada solid;
+    background: white;
+
+    &-label {
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        background: dodgerblue;
+      }
+    }
+  }
+
+  &__checkbox {
+    margin-left: 10px;
+  }
+
+  &__description {
+    display: block;
+    margin-left: 10px;
+    user-select: none;
+  }
 }
 
 .dirty {
@@ -87,38 +179,3 @@ input {
 .error:focus {
   outline-color: #F99;
 }
-
-.multiselect {
-  width: 30%;
-
-  &__box {
-    position: relative;
-  }
-
-  &__select {
-    width: 100%;
-    font-weight: bold;
-  }
-
-  &__over {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-  }
-
-  &__checkboxes {
-    //display: none;
-    border: 1px #dadada solid;
-
-    &-label {
-      display: block;
-
-      &:hover {
-        background: #FF9999;
-      }
-    }
-  }
-}
-
