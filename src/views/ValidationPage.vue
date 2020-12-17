@@ -14,8 +14,9 @@
                    :class="status($v.surname)">
           </label>
           <span class="form__error"
-                v-if="$v.surname.$dirty && $v.surname.$error">Must be filled</span>
-          <!--          <pre>{{ $v }}</pre>-->
+                v-if="$v.surname.$dirty && $v.surname.$error">
+            Must be filled
+          </span>
         </div>
 
         <div class="form__block">
@@ -28,6 +29,7 @@
           </label>
           <span class="form__error"
                 v-if="$v.name.$dirty && $v.name.$error">Must be filled</span>
+          <pre>{{ $v.name }}</pre>
         </div>
 
         <div class="form__block">
@@ -342,11 +344,12 @@
 
 <script>
 import {
-  required, minLength, maxLength, alpha, maxValue, numeric, alphaNum,
+  required, minLength, maxLength, alpha, maxValue, numeric, alphaNum, or,
 } from 'vuelidate/lib/validators';
 
 const phoneTest = (data) => /^(7)[0-9]{11}$/.test(data);
-const cyrillic = (data) => /^[а-яё]*$/i.test(data);
+const cyrillic = (val) => /^[а-яё]*$/i.test(val);
+const cyrillicNum = (val) => /^[а-яё0-9]*$/i.test(val);
 
 export default {
   name: 'ValidationPage',
@@ -378,25 +381,31 @@ export default {
 
   validations: {
     surname: {
-      required, minLength: minLength(2), alpha, cyrillic,
+      required, minLength: minLength(2), alphaPlusCyrillic: or(alpha, cyrillic),
     },
-    name: { required, minLength: minLength(2), alpha: (val) => /^[а-яё]*$/i.test(val) },
-    patronymic: { minLength: minLength(2), alpha },
+    name: {
+      required, minLength: minLength(2), alphaPlusCyrillic: or(alpha, cyrillic),
+    },
+    patronymic: { minLength: minLength(2), alphaPlusCyrillic: or(alpha, cyrillic) },
     dateObject: { required, maxValue: maxValue(new Date()) },
     phone: { required, phoneTest },
     index: { minLength: minLength(6), maxLength: maxLength(6), numeric },
-    country: { minLength: minLength(2), alpha },
-    region: { minLength: minLength(2), alpha },
-    city: { required, minLength: minLength(2), alpha },
-    street: { minLength: minLength(2) },
-    apartment: { alphaNum },
+    country: { minLength: minLength(2), alphaPlusCyrillic: or(alpha, cyrillic) },
+    region: { minLength: minLength(2), alphaPlusCyrillic: or(alpha, cyrillic) },
+    city: { required, minLength: minLength(2), alphaPlusCyrillic: or(alpha, cyrillic) },
+    street: { minLength: minLength(2), alphaPlusCyrillic: or(alpha, cyrillic) },
+    apartment: { alphaPlusCyrillicPlusNumbers: or(alphaNum, cyrillicNum) },
     passportSerial: { minLength: minLength(4), maxLength: maxLength(4), numeric },
     passportNumber: { minLength: minLength(6), maxLength: maxLength(6), numeric },
-    birthDocSerial: { minLength: minLength(2), maxLength: maxLength(2), alphaNum },
+    birthDocSerial: {
+      minLength: minLength(2),
+      maxLength: maxLength(2),
+      alphaPlusCyrillicPlusNumbers: or(alphaNum, cyrillicNum),
+    },
     birthDocNumber: { minLength: minLength(8), maxLength: maxLength(8), numeric },
     driverLicenseSerial: { minLength: minLength(2), maxLength: maxLength(2), alpha },
     driverLicenseNumber: { minLength: minLength(8), maxLength: maxLength(8), numeric },
-    docIssued: {},
+    docIssued: { alphaPlusCyrillic: or(alpha, cyrillic) },
     issuedDateComp: { required, maxValue: maxValue(new Date()) },
   },
 
